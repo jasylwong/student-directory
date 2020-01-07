@@ -22,14 +22,18 @@ def print_header
     puts "--------------"
 end
 
+MAX_NAME_LENGTH = 11
+
 def print(students)
-    students.each_with_index do |student, index|
-        puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    students.each do |student|
+        puts "#{student[:name]} (#{student[:cohort]} cohort)" if student[:name].length <= MAX_NAME_LENGTH
     end
 end
 
 def print_footer(names)
-    puts "Overall, we have #{names.count} great students"
+    short_names = names.count{|name| name[:name].length <= MAX_NAME_LENGTH}
+    puts "Overall, we have #{names.count} great students;"
+    puts "and #{short_names} where the name is shorter than #{MAX_NAME_LENGTH + 1} characters."
 end
 
 students = input_students

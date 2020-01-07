@@ -22,14 +22,17 @@ def print_header
     puts "--------------"
 end
 
+FIRST_LETTER = "A"
+
 def print(students)
-    students.each_with_index do |student, index|
-        puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    students.each do |student|
+        puts "#{student[:name]} (#{student[:cohort]} cohort)" if student[:name][0] == FIRST_LETTER
     end
 end
 
 def print_footer(names)
-    puts "Overall, we have #{names.count} great students"
+    first_letter_count = names.count{|name| name[:name][0] == FIRST_LETTER}
+    puts "Overall, we have #{names.count} great students, but only #{first_letter_count} where the name begins with #{FIRST_LETTER}."
 end
 
 students = input_students
