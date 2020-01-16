@@ -47,9 +47,8 @@ end
 def save_students
     file = File.open("students.csv", "w")
     @students.each do |student|
-        student_input = [student[:name], student[:cohort]]
-        csv_input = student_input.join(",")
-        file.puts(csv_input)
+        student_input = [student[:name], student[:cohort]].join(",")
+        file.puts(student_input)
     end
     file.close
 end
