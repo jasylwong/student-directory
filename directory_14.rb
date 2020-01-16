@@ -16,11 +16,14 @@ def input_students
     puts "Please enter the names of the students"
     puts "To finish, just hit return twice"
     name = STDIN.gets.chomp
+    new_num = 0
     while !name.empty? do
         add_student(name, "november")
+        new_num += 1
         puts "Now we have #{@students.count} students"
         name = STDIN.gets.chomp
     end
+    puts "#{new_num} new students have been inputted."
 end
 
 def print_header
@@ -51,6 +54,7 @@ def save_students
         file.puts(student_input)
     end
     file.close
+    puts "Your student directory list has been saved in the csv file."
 end
 
 def try_load_students
@@ -58,7 +62,6 @@ def try_load_students
     return if filename.nil?
     if File.exists?(filename)
         load_students(filename)
-        puts "Loaded #{@students.count} students from #{filename}"
     else
         puts "Sorry, #{filename} does not exist"
         exit
@@ -72,6 +75,7 @@ def load_students(filename = "students.csv")
         add_student(name, cohort)
     end
     file.close
+    puts "Students have been loaded from #{filename}."
 end
 
 def process(selection)
