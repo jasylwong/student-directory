@@ -15,12 +15,16 @@ def input_students
       cohort = gets.chomp
     end
     cohort = cohort.empty? ? :november : cohort.downcase
-    students << {name: name, cohort: cohort.to_sym}
+    puts "Country of birth: "
+    cob = gets.chomp
+    puts "Hobbies (for multiple, enter each separated by a comma): "
+    hobbies = gets.chomp.split(",")
+    students << {name: name, cohort: cohort.to_sym, country_of_birth: cob, hobbies: hobbies}
     puts "Now we have #{students.count} students"
     puts "Please enter another name"
     name = gets.chomp
   end
-  students
+  p students
 end
   
 def print_header
@@ -29,9 +33,6 @@ def print_header
 end
 
 def print(students)
-  # students.each_with_index do |student, index|
-  #     puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)".center(40, "-")
-  # end
   students_by_cohort = {}
   @months.each do |month|
     students_by_cohort[month.downcase.to_sym] = []
@@ -42,8 +43,11 @@ def print(students)
   end
   students_by_cohort.each do |month, cohort|
     puts "#{month.to_s.capitalize} cohort" if !cohort.empty?
-    cohort.each_with_index do |name, index|
-      puts "#{index + 1}. #{name}"
+    cohort.each_with_index do |student_name, index|
+      students.each do |student|
+        puts "#{index + 1}. Name: #{student[:name]} | Birth country: #{student[:country_of_birth]} | 
+        Hobbies: #{student[:hobbies].join(",")}" if student[:name] == student_name
+      end
     end
   end
 end
@@ -85,7 +89,7 @@ else
     print_everything(students)
   elsif input == "2"
     filter_by_letter(students)
-  elsif input = "3"
+  elsif input == "3"
     filter_by_length(students)
   end
 end
