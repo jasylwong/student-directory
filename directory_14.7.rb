@@ -65,12 +65,12 @@ def try_load_students
 end 
 
 def load_students(filename = "students.csv")
-    file = File.open(filename, "r")
-    file.readlines.each do |line|
-        name, cohort = line.chomp.split(",")
-        @students << {name: name, cohort: cohort.to_sym}
+    CSV.open(filename, "r") do |csv|
+        csv.readlines.each do |line|
+            name, cohort = line
+            @students << {name: name, cohort: cohort.to_sym}
+        end
     end
-    file.close
 end
 
 def process(selection)
