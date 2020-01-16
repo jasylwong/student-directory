@@ -55,7 +55,7 @@ def save_students
 end
 
 def try_load_students
-    filename = ARGV.first
+    filename = ( ARGV.first.nil? ? "students.csv" : ARGV.first )
     return if filename.nil?
     if File.exists?(filename)
         load_students(filename)
