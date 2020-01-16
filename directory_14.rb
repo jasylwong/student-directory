@@ -48,13 +48,15 @@ def show_students
 end
 
 def save_students
-    file = File.open("students.csv", "w")
+    puts "What file would you like to save them in?"
+    filename = gets.chomp
+    file = File.open(filename, "w")
     @students.each do |student|
         student_input = [student[:name], student[:cohort]].join(",")
         file.puts(student_input)
     end
     file.close
-    puts "Your student directory list has been saved in the csv file."
+    puts "Your student directory list has been saved in #{filename}."
 end
 
 def try_load_students
@@ -87,7 +89,9 @@ def process(selection)
     when "3"
         save_students
     when "4"
-        load_students
+        puts "What file would you like to load from?"
+        filename = gets.chomp
+        load_students(filename)
     when "9"
         exit
     else
